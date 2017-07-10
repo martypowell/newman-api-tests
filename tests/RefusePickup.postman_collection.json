@@ -1,0 +1,95 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RefusePickup",
+		"_postman_id": "7416aa10-7e79-25b4-1aaa-8653d570572e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Street Lookup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"tests[\"Response is an Array \"] = data && typeof data === 'object' && data.constructor === Array;",
+							"tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWStreet",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Cookie",
+						"value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"prefixText\":\"W\",\"count\":0}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Zip Lookup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+							"var item = data ? JSON.parse(data[0]) : null;",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+							"tests[\"Response is an Array \"] = data && typeof data === 'object';",
+							"tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;",
+							"tests[\"Items contain First and Second properties \"] = item && item.First && item.Second;",
+							"tests[\"First Property is a Zip \"] = item && item.First && item.First.length === 5;",
+							"tests[\"Second Property is a String \"] = item && item.Second && typeof item.Second === 'string';"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWZip",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"prefixText\":\"2\",\"count\":0}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

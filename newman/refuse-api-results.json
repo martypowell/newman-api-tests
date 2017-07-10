@@ -1,0 +1,559 @@
+{
+  "collection": {
+    "info": {
+      "id": "7416aa10-7e79-25b4-1aaa-8653d570572e",
+      "name": "RefusePickup",
+      "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "event": [],
+    "variable": [],
+    "item": [
+      {
+        "id": "183fcc15-9371-476e-b254-73d8f80b9058",
+        "name": "Street Lookup",
+        "request": {
+          "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWStreet",
+          "method": "POST",
+          "header": [
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Cookie",
+              "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"prefixText\":\"W\",\"count\":0}"
+          },
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+                "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                "tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+                "tests[\"Response is an Array \"] = data && typeof data === 'object' && data.constructor === Array;",
+                "tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "de8b810e-ec90-4f8c-ac66-2b839f8e2e08",
+        "name": "Zip Lookup",
+        "request": {
+          "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWZip",
+          "method": "POST",
+          "header": [
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Cookie",
+              "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+            },
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"prefixText\":\"2\",\"count\":0}"
+          },
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+                "var item = data ? JSON.parse(data[0]) : null;",
+                "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                "tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+                "tests[\"Response is an Array \"] = data && typeof data === 'object';",
+                "tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;",
+                "tests[\"Items contain First and Second properties \"] = item && item.First && item.Second;",
+                "tests[\"First Property is a Zip \"] = item && item.First && item.First.length === 5;",
+                "tests[\"Second Property is a String \"] = item && item.Second && typeof item.Second === 'string';"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "id": "3d601df3-9fa2-4a17-ac7b-23bbcec08e1a",
+    "values": []
+  },
+  "globals": {
+    "id": "50773927-a883-470b-889d-774389e155cb",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 11,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 143,
+      "started": 1495039864899,
+      "completed": 1495039865231
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "5479d92f-5ffa-454f-9e37-0345e6f96eb9"
+        },
+        "item": {
+          "id": "183fcc15-9371-476e-b254-73d8f80b9058",
+          "name": "Street Lookup",
+          "request": {
+            "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWStreet",
+            "method": "POST",
+            "header": [
+              {
+                "description": {
+                  "content": "",
+                  "type": "text/plain"
+                },
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "description": {
+                  "content": "",
+                  "type": "text/plain"
+                },
+                "key": "Cookie",
+                "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"prefixText\":\"W\",\"count\":0}"
+            },
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+                  "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                  "tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+                  "tests[\"Response is an Array \"] = data && typeof data === 'object' && data.constructor === Array;",
+                  "tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;"
+                ]
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWStreet",
+          "method": "POST",
+          "header": [
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Cookie",
+              "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/5.0.0"
+            },
+            {
+              "key": "Accept",
+              "value": "*/*"
+            },
+            {
+              "key": "Host",
+              "value": "refuse.baltimorecountymd.gov"
+            },
+            {
+              "key": "accept-encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "key": "content-length",
+              "value": 28
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"prefixText\":\"W\",\"count\":0}"
+          },
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          }
+        },
+        "response": {
+          "id": "9aebb3ba-fafe-49e5-9248-ba5fb7ce9204",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, max-age=0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/7.5"
+            },
+            {
+              "key": "X-AspNet-Version",
+              "value": "2.0.50727"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 17 May 2017 16:51:05 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "157"
+            }
+          ],
+          "body": "[\"W AYLESBURY RD\",\"W B ST\",\"W BRANCH RD\",\"W BURKE AVE\",\"W CHATSWORTH AVE\",\"W CHERRY HILL CT\",\"W CHERRY HILL RD\",\"W CHERRY LN\",\"W CHESAPEAKE AVE\",\"WILSON LN\"]",
+          "cookie": [],
+          "responseTime": 143,
+          "responseSize": 157,
+          "update": {},
+          "_postman_requiresId": true,
+          "reason": {},
+          "text": {},
+          "json": {},
+          "mime": {},
+          "dataURI": {},
+          "size": {},
+          "encoding": {},
+          "describe": {},
+          "toObjectResolved": {},
+          "forEachParent": {},
+          "toJSON": {},
+          "meta": {},
+          "parent": {}
+        },
+        "id": "183fcc15-9371-476e-b254-73d8f80b9058",
+        "assertions": [
+          {
+            "assertion": "Status code is 200"
+          },
+          {
+            "assertion": "Response time is less than 200ms"
+          },
+          {
+            "assertion": "Response is an Array "
+          },
+          {
+            "assertion": "Response contains 10 Items "
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "61504c90-e3ff-494c-8095-f88728f65916",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0
+        },
+        "item": {
+          "id": "de8b810e-ec90-4f8c-ac66-2b839f8e2e08",
+          "name": "Zip Lookup",
+          "request": {
+            "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWZip",
+            "method": "POST",
+            "header": [
+              {
+                "description": {
+                  "content": "",
+                  "type": "text/plain"
+                },
+                "key": "Cookie",
+                "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+              },
+              {
+                "description": {
+                  "content": "",
+                  "type": "text/plain"
+                },
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"prefixText\":\"2\",\"count\":0}"
+            },
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var data = responseBody.substring(0,1) === \"[\" ? JSON.parse(responseBody) : null;",
+                  "var item = data ? JSON.parse(data[0]) : null;",
+                  "tests[\"Status code is 200\"] = responseCode.code === 200;",
+                  "tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+                  "tests[\"Response is an Array \"] = data && typeof data === 'object';",
+                  "tests[\"Response contains 10 Items \"] = data && typeof data === 'object' && data.length === 10;",
+                  "tests[\"Items contain First and Second properties \"] = item && item.First && item.Second;",
+                  "tests[\"First Property is a Zip \"] = item && item.First && item.First.length === 5;",
+                  "tests[\"Second Property is a String \"] = item && item.Second && typeof item.Second === 'string';"
+                ]
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWZip",
+          "method": "POST",
+          "header": [
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Cookie",
+              "value": "_ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.2.544525444.1486413506; __utma=144511398.544525444.1486413506.1491827644.1491827644.1; __utmc=144511398; __utmz=144511398.1491827644.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
+            },
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/5.0.0"
+            },
+            {
+              "key": "Accept",
+              "value": "*/*"
+            },
+            {
+              "key": "Host",
+              "value": "refuse.baltimorecountymd.gov"
+            },
+            {
+              "key": "accept-encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "key": "content-length",
+              "value": 28
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"prefixText\":\"2\",\"count\":0}"
+          },
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          }
+        },
+        "response": {
+          "id": "159f71ee-0498-4bce-a88d-bcc36aeb5895",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, max-age=0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Server",
+              "value": "Microsoft-IIS/7.5"
+            },
+            {
+              "key": "X-AspNet-Version",
+              "value": "2.0.50727"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "ASP.NET"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 17 May 2017 16:51:05 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "479"
+            }
+          ],
+          "body": "[\"{\\\"First\\\":\\\"21013\\\",\\\"Second\\\":\\\"BALDWIN\\\"}\",\"{\\\"First\\\":\\\"21020\\\",\\\"Second\\\":\\\"BORING\\\"}\",\"{\\\"First\\\":\\\"21021\\\",\\\"Second\\\":\\\"BRADSHAW\\\"}\",\"{\\\"First\\\":\\\"21022\\\",\\\"Second\\\":\\\"BROOKLANDVILLE\\\"}\",\"{\\\"First\\\":\\\"21023\\\",\\\"Second\\\":\\\"BUTLER\\\"}\",\"{\\\"First\\\":\\\"21027\\\",\\\"Second\\\":\\\"CHASE\\\"}\",\"{\\\"First\\\":\\\"21030\\\",\\\"Second\\\":\\\"COCKEYSVILLE\\\"}\",\"{\\\"First\\\":\\\"21031\\\",\\\"Second\\\":\\\"HUNT VALLEY\\\"}\",\"{\\\"First\\\":\\\"21043\\\",\\\"Second\\\":\\\"OELLA\\\"}\",\"{\\\"First\\\":\\\"21051\\\",\\\"Second\\\":\\\"FORK\\\"}\"]",
+          "cookie": [],
+          "responseTime": 0,
+          "responseSize": 479,
+          "update": {},
+          "_postman_requiresId": true,
+          "reason": {},
+          "text": {},
+          "json": {},
+          "mime": {},
+          "dataURI": {},
+          "size": {},
+          "encoding": {},
+          "describe": {},
+          "toObjectResolved": {},
+          "forEachParent": {},
+          "toJSON": {},
+          "meta": {},
+          "parent": {}
+        },
+        "id": "de8b810e-ec90-4f8c-ac66-2b839f8e2e08",
+        "assertions": [
+          {
+            "assertion": "Status code is 200"
+          },
+          {
+            "assertion": "Response time is less than 200ms"
+          },
+          {
+            "assertion": "Response is an Array "
+          },
+          {
+            "assertion": "Response contains 10 Items "
+          },
+          {
+            "assertion": "Items contain First and Second properties "
+          },
+          {
+            "assertion": "First Property is a Zip "
+          },
+          {
+            "assertion": "Second Property is a String "
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 636
+    },
+    "failures": [],
+    "error": null
+  }
+}

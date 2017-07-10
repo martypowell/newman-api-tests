@@ -1,0 +1,17 @@
+{
+  "name": "baltimore-county-api-tests",
+  "version": "1.0.0",
+  "description": "Tests to determine the availability of baltimore county api and web services",
+  "main": "index.js",
+  "dependencies": {
+    "chakram": "^1.5.0"
+  },
+  "devDependencies": {
+    "chakram": "^1.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

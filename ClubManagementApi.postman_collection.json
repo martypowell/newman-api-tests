@@ -1,0 +1,44 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RefusePickup",
+		"_postman_id": "7416aa10-7e79-25b4-1aaa-8653d570572e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Streets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://refuse.baltimorecountymd.gov/GetCWStreetWebService.asmx/GetCWStreet",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"prefixText\":\"W\",\"count\":0}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
